@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>902</width>
+    <height>724</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Projectile simulation</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLineEdit" name="lineEdit_mass">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>620</y>
+      <width>271</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mass_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>690</y>
+      <width>381</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Масса тела, кг -------------------------------------------------------&gt;</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_planet">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>400</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Плутон 0,617 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Эрида 0,82 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Луна 1,62 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Меркурий 3,70 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Марс 3,86 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Уран 8,86 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Венера 8,88 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Земля 9,81 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Сатурн 10,44 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Нептун 11,09 м/с2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Юпитер 24,79 м/с2</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_density">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>450</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Литий 530 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Натрий 970 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Бериллий 1850 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Алюминий 2700  кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Германий 5320 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Хром 7190 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Железо 7870 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Медь 8940 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Серебро 10500 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Свинец 11350 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Палладий 12020 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Уран 19050 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Золото 19300 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Платина 19590 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Иридий 22560 кг/м3</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_environment">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>500</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Гексафторид вольфрама 12,9 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Водород 0,090  кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Гелий 0,178 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Метан 0,717 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Аммиак 0,771 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Воздух 1,293 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Аргон 1,784 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Углекислый газ 1,977 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Хлор 3,164 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Криптон 3,743 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ксенон 5,851 кг/м3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Радон 9,81 кг/м3</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_startspeed">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>690</y>
+      <width>271</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_angle">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>550</y>
+      <width>271</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="speed_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>620</y>
+      <width>381</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Начальная скорость, м/с -------------------------------------------&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="angle_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>550</y>
+      <width>381</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Угол между вектором начальной скоростью и осью x ----------&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="planet_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Планета</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="density_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>450</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вещество тела</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="environment_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Воздушная среда</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="interface_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>391</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="image">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>381</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
