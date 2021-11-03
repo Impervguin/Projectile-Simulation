@@ -367,7 +367,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Projectile simulation"))
         self.groupBox.setTitle(_translate("MainWindow", "Характеристики Тела"))
         self.comboBox_density.setItemText(1, _translate("MainWindow", "Литий"))
-        self.comboBox_density.setItemText(2, _translate("MainWindow", "Натрий "))
+        self.comboBox_density.setItemText(2, _translate("MainWindow", "Натрий"))
         self.comboBox_density.setItemText(3, _translate("MainWindow", "Бериллий"))
         self.comboBox_density.setItemText(4, _translate("MainWindow", "Алюминий"))
         self.comboBox_density.setItemText(5, _translate("MainWindow", "Германий"))
@@ -430,7 +430,8 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "Вывод ошибок"))
         self.calculate.setText(_translate("MainWindow", "Рассчитать траекторию и построить график"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Условия симуляции"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Симуляция в виде графика"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2),
+                                  _translate("MainWindow", "Симуляция в виде графика"))
         item = self.coords_table1.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Время t, с"))
         item = self.coords_table1.horizontalHeaderItem(1)
@@ -470,5 +471,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Планета"))
         item = self.planet_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Ускорение свободного падения"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Таблица физических величин"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Теоритетические материалы"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3),
+                                  _translate("MainWindow", "Таблица физических величин"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5),
+                                  _translate("MainWindow", "Теоритетические материалы"))
