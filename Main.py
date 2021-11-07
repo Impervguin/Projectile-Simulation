@@ -3,6 +3,7 @@ import csv
 import sqlite3 as sl
 from ui_file import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from PyQt5.QtCore import QUrl
 from calculate_coordinates import calculate_without_air_resistance as noairres, calculate_with_air_resistance as airres
 from pyqtgraph import PlotWidget, exporters, LegendItem, mkPen
 
@@ -16,6 +17,15 @@ class Window(QMainWindow, Ui_MainWindow):
         self.fill_boxes_with_starting_values_and_turn_on_radiobuttons()
         self.connect_buttons()
         self.configure_plot()
+        self.load_html_theory_materials()
+
+    def load_html_theory_materials(self):
+        html = open("Theoretical materials HTML/Theory_page")
+        page = ""
+        for line in html.readlines():
+            page += line + "\n"
+        self.HtmlViewer.setHtml(page)
+        self.HtmlViewer.show()
 
     def fill_boxes_with_starting_values_and_turn_on_radiobuttons(self):
         self.startspeedbox.setValue(100)
