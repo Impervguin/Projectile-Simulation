@@ -1,11 +1,12 @@
 import sys
 import csv
 import sqlite3 as sl
-from ui_file import Ui_MainWindow
+from ui_file import Ui_MainWindow, ConfirmationWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtCore import QUrl
 from calculate_coordinates import calculate_without_air_resistance as noairres, calculate_with_air_resistance as airres
 from pyqtgraph import PlotWidget, exporters, LegendItem, mkPen
+import time
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -18,6 +19,27 @@ class Window(QMainWindow, Ui_MainWindow):
         self.connect_buttons()
         self.configure_plot()
         self.load_html_theory_materials()
+        self.init_confirmation_window()
+
+    def init_confirmation_window(self):
+        self.sec = ConfirmationWindow()
+        self.sec.data[bool, str].connect(self.handle_confirm)
+
+    def handle_confirm(self, confirm, fname):
+        if confirm:
+            if fname[-3:] == ".db":
+                self.save_db_table(fname)
+            elif fname[-4:] == ".csv":
+                self.save_csv_table(fname)
+            else:
+                self.save_plot_image(fname)
+        else:
+            if fname[-3:] == ".db":
+                self.savetextedit.setPlainText(f"База данных {fname[10:]} уже существует")
+            elif fname[-4:] == ".csv":
+                self.savetextedit.setPlainText(f"CSV-таблица {fname[5:]} уже существует")
+            else:
+                self.savetextedit.setPlainText(f"Изображение {fname[7:]} уже существует. Введите другое название.")
 
     def load_html_theory_materials(self):
         html = open("Theoretical materials HTML/Theory_page")
@@ -45,9 +67,9 @@ class Window(QMainWindow, Ui_MainWindow):
         self.airresistanceonbut.toggled.connect(self.air_resistance_on_checked)
         self.airresistanceoffbut.toggled.connect(self.air_resistance_off_checked)
         self.comparisonbut.toggled.connect(self.air_resistance_on_checked)
-        self.savecsv.clicked.connect(self.save_csv_table)
-        self.savedb.clicked.connect(self.save_db_table)
-        self.saveimage.clicked.connect(self.save_plot_image)
+        self.savecsv.clicked.connect(self.check_save_csv_table)
+        self.savedb.clicked.connect(self.check_save_db_table)
+        self.saveimage.clicked.connect(self.check_save_plot_image)
 
     def configure_plot(self):
         self.plot.showGrid(x=True, y=True)
@@ -71,7 +93,7 @@ class Window(QMainWindow, Ui_MainWindow):
         else:
             return ".svg"
 
-    def save_plot_image(self):
+    def check_save_plot_image(self):
         fname = "IMAGES/" + self.imagefilename.text().strip() + self.get_image_format()
         if len(fname) == 11:
             self.savetextedit.setPlainText("Не введено имя файла.")
@@ -84,22 +106,27 @@ class Window(QMainWindow, Ui_MainWindow):
             f = open(fname)
             f.close()
         except FileNotFoundError:
-            if fname[-4:] == ".svg":
-                export = exporters.SVGExporter(self.plot.plotItem)
-                width = export.parameters()["width"]
-            else:
-                export = exporters.ImageExporter(self.plot.plotItem)
-                width = export.parameters()["width"] * 2
-            export.parameters()["width"] = width
-            export.export(fileName=fname)
-            self.savetextedit.setPlainText(f"Файл {fname[7:]} успешно сохранен.\n Вы можете найти его в папке IMAGES")
+            self.save_plot_image(fname)
         else:
-            self.savetextedit.setPlainText(f"Изображение{fname[7:]} уже существует. Введите другое название.")
+            self.sec.fname = fname
+            self.sec.show()
 
-    def save_csv_table(self):
+    def save_plot_image(self, fname):
+        if fname[-4:] == ".svg":
+            export = exporters.SVGExporter(self.plot.plotItem)
+            width = export.parameters()["width"]
+        else:
+            export = exporters.ImageExporter(self.plot.plotItem)
+            width = export.parameters()["width"] * 2
+        export.parameters()["width"] = width
+        export.export(fileName=fname)
+        self.savetextedit.setPlainText(f"Файл {fname[7:]} успешно сохранен.\n Вы можете найти его в папке IMAGES")
+
+    def check_save_csv_table(self):
         fname = "CSVS/" + self.csvfilename.text().strip() + ".csv"
         if fname == "CSVS/.csv":
             self.savetextedit.setPlainText("Не введено имя файла.")
+            return
         rows1 = self.coords_table1.rowCount()
         rows2 = self.coords_table2.rowCount()
         if rows1 == 0 and rows2 == 0:
@@ -108,83 +135,96 @@ class Window(QMainWindow, Ui_MainWindow):
             f = open(fname)
             f.close()
         except FileNotFoundError:
-            with open(fname, "w", encoding="utf-8") as csvfile:
-                writer = csv.writer(csvfile, delimiter=";", quotechar="'")
-                if rows2 != 0:
-                    writer.writerow(["t, с", "X, м", "Y, м"])
-                    for i in range(rows1):
-                        row = [0] * 3
-                        row[0] = self.coords_table1.item(i, 0).text()
-                        row[1] = self.coords_table1.item(i, 1).text()
-                        row[2] = self.coords_table1.item(i, 2).text()
-                        writer.writerow(row)
-                writer.writerow([])
-                if rows1 != 0:
-                    writer.writerow(["t, с", "X, м", "Y, м"])
-                    for i in range(rows2):
-                        row = [0] * 3
-                        row[0] = self.coords_table2.item(i, 0).text()
-                        row[1] = self.coords_table2.item(i, 1).text()
-                        row[2] = self.coords_table2.item(i, 2).text()
-                        writer.writerow(row)
-                self.savetextedit.setPlainText(f"Файл {fname[5:]} успешно сохранен.\n"
-                                               f"Разделитель = ';'\n"
-                                               f"{'Таблица 1 и таблица 2 разделены знаком переноса строки' if rows1 != 0 and rows2 != 0 else ''}\n"
-                                               f"Файл можно найти в папке CSVS")
+            self.save_csv_table(fname)
         else:
-            self.savetextedit.setPlainText("Файл уже существует. Введите другое название.")
+            self.sec.fname = fname
+            self.sec.show()
 
-    def save_db_table(self):
+    def save_csv_table(self, fname):
+        rows1 = self.coords_table1.rowCount()
+        rows2 = self.coords_table2.rowCount()
+        with open(fname, "w", encoding="utf-8") as csvfile:
+            writer = csv.writer(csvfile, delimiter=";", quotechar="'")
+            if rows1 != 0:
+                writer.writerow(["t, с", "X, м", "Y, м"])
+                for i in range(rows1):
+                    row = [0] * 3
+                    row[0] = self.coords_table1.item(i, 0).text()
+                    row[1] = self.coords_table1.item(i, 1).text()
+                    row[2] = self.coords_table1.item(i, 2).text()
+                    writer.writerow(row)
+            writer.writerow([])
+            if rows2 != 0:
+                writer.writerow(["t, с", "X, м", "Y, м"])
+                for i in range(rows2):
+                    row = [0] * 3
+                    row[0] = self.coords_table2.item(i, 0).text()
+                    row[1] = self.coords_table2.item(i, 1).text()
+                    row[2] = self.coords_table2.item(i, 2).text()
+                    writer.writerow(row)
+            self.savetextedit.setPlainText(f"Файл {fname[5:]} успешно сохранен.\n"
+                                           f"Разделитель = ';'\n"
+                                           f"{'Таблица 1 и таблица 2 разделены знаком переноса строки' if rows1 != 0 and rows2 != 0 else ''}\n"
+                                           f"Файл можно найти в папке CSVS")
+
+    def check_save_db_table(self):
         fname = "DATABASES/" + self.dbfilename.text() + ".db"
         if fname == "DATABASES/.db":
             self.savetextedit.setPlainText("Не введено имя файла.")
+            return
         try:
             f = open(fname)
             f.close()
         except FileNotFoundError:
-            db = sl.connect(fname)
-            rows1 = self.coords_table1.rowCount()
-            rows2 = self.coords_table2.rowCount()
-            if rows1 != 0:
-                with db:
-                    db.execute("""CREATE TABLE Координаты_без_силы_сопротивления_воздуха (
-                    _id INTEGER,
-                    t FLOAT,
-                    X FLOAT,
-                    Y FLOAT);""")
-                    data = []
-                    for i in range(rows1):
-                        row = [0] * 4
-                        row[0] = i + 1
-                        row[1] = float(self.coords_table1.item(i, 0).text())
-                        row[2] = float(self.coords_table1.item(i, 1).text())
-                        row[3] = float(self.coords_table1.item(i, 2).text())
-                        data.append(row)
-                    request = """INSERT INTO Координаты_без_силы_сопротивления_воздуха (_id, t, X, Y) values(?, ?, ?, ?);"""
-                    db.executemany(request, data)
-            if rows2 != 0:
-                with db:
-                    db.execute("""CREATE TABLE Координаты (
+            self.save_db_table(fname)
+        else:
+            self.sec.fname = fname
+            self.sec.show()
+
+    def save_db_table(self, fname):
+        db = sl.connect(fname)
+        rows1 = self.coords_table1.rowCount()
+        rows2 = self.coords_table2.rowCount()
+        db.execute("DROP TABLE IF EXISTS Координаты_без_силы_сопротивления_воздуха;", )
+        db.execute("DROP TABLE IF EXISTS Координаты;", )
+        if rows1 != 0:
+            with db:
+                db.execute("""CREATE TABLE Координаты_без_силы_сопротивления_воздуха (
                                     _id INTEGER,
                                     t FLOAT,
                                     X FLOAT,
-                                    Y FLOAT); """)
-                    data = []
-                    for i in range(rows2):
-                        row = [0] * 4
-                        row[0] = i + 1
-                        row[1] = float(self.coords_table2.item(i, 0).text())
-                        row[2] = float(self.coords_table2.item(i, 1).text())
-                        row[3] = float(self.coords_table2.item(i, 2).text())
-                        data.append(row)
-                    request = """INSERT INTO Координаты
-                                     (_id, t, X, Y) values(?, ?, ?, ?);"""
-                    db.executemany(request, data)
-            self.savetextedit.setPlainText(f"База данных {fname[10:]} успешно создана\n"
-                                           f"")
-            db.close()
-        else:
-            self.savetextedit.setPlainText("Файл уже существует. Введите другое название.")
+                                    Y FLOAT);""")
+                data = []
+                for i in range(rows1):
+                    row = [0] * 4
+                    row[0] = i + 1
+                    row[1] = float(self.coords_table1.item(i, 0).text())
+                    row[2] = float(self.coords_table1.item(i, 1).text())
+                    row[3] = float(self.coords_table1.item(i, 2).text())
+                    data.append(row)
+                request = """INSERT INTO Координаты_без_силы_сопротивления_воздуха (_id, t, X, Y) values(?, ?, ?, ?);"""
+                db.executemany(request, data)
+        if rows2 != 0:
+            with db:
+                db.execute("""CREATE TABLE Координаты (
+                                                    _id INTEGER,
+                                                    t FLOAT,
+                                                    X FLOAT,
+                                                    Y FLOAT); """)
+                data = []
+                for i in range(rows2):
+                    row = [0] * 4
+                    row[0] = i + 1
+                    row[1] = float(self.coords_table2.item(i, 0).text())
+                    row[2] = float(self.coords_table2.item(i, 1).text())
+                    row[3] = float(self.coords_table2.item(i, 2).text())
+                    data.append(row)
+                request = """INSERT INTO Координаты
+                                                     (_id, t, X, Y) values(?, ?, ?, ?);"""
+                db.executemany(request, data)
+        self.savetextedit.setPlainText(f"База данных {fname[10:]} успешно создана\n"
+                                       f"")
+        db.close()
 
     def fill_phys_table(self):
         curs = self.db.execute("SELECT * FROM MATERIAL_DENSITY")

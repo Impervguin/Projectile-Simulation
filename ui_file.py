@@ -475,3 +475,35 @@ class Ui_MainWindow(object):
                                   _translate("MainWindow", "Таблица физических величин"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5),
                                   _translate("MainWindow", "Теоритетические материалы"))
+
+
+class ConfirmationWindow(QtWidgets.QWidget):
+    data = QtCore.pyqtSignal(bool, str)
+
+    def __init__(self):
+        super(ConfirmationWindow, self).__init__()
+        self.fname = ""
+        self.setWindowTitle("Подтверждение")
+        self.setFixedHeight(150)
+        self.setFixedWidth(400)
+        self.setWindowModality(QtCore.Qt.ApplicationModal)
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(40, 20, 315, 22)
+        self.label.setText("Вы хотите изменить существующий файл?")
+        self.Ybutton = QtWidgets.QPushButton(self)
+        self.Ybutton.setGeometry(50, 80, 100, 40)
+        self.Ybutton.setText("Да")
+        self.Nbutton = QtWidgets.QPushButton(self)
+        self.Nbutton.setGeometry(250, 80, 100, 40)
+        self.Nbutton.setText("Нет")
+
+        self.Ybutton.clicked.connect(self.yes)
+        self.Nbutton.clicked.connect(self.no)
+
+    def no(self):
+        self.data.emit(False, self.fname)
+        self.close()
+
+    def yes(self):
+        self.data.emit(True, self.fname)
+        self.close()
