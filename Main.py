@@ -42,7 +42,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 self.savetextedit.setPlainText(f"Изображение {fname[7:]} уже существует. Введите другое название.")
 
     def load_html_theory_materials(self):
-        html = open("Theoretical materials HTML/Theory_page")
+        html = open("Theoretical materials HTML/Theory_page", encoding="utf-8")
         page = ""
         for line in html.readlines():
             page += line + "\n"
@@ -331,6 +331,9 @@ class Window(QMainWindow, Ui_MainWindow):
                 return density
         return -1
 
+    def get_time_step(self):
+        return self.time_char.value()
+
     def check_errors_in_input(self):
         no_errors = True
         errors_text = []
@@ -360,12 +363,13 @@ class Window(QMainWindow, Ui_MainWindow):
             self.errorscreen.setPlainText(text)
         return no_errors
 
-    def add_noairres_plot_to_plot(self, speed, angle, accel, height, pen="r"):
+    def add_noairres_plot_to_plot(self, speed, angle, accel, height, time_step, pen="r"):
         x, y, t = noairres(
             start_speed=speed,
             angle=angle,
             g=accel,
-            start_height=height
+            start_height=height,
+            time_step=time_step
         )
         self.coords_table1.setRowCount(len(t))
         for i in range(len(t)):
@@ -376,14 +380,15 @@ class Window(QMainWindow, Ui_MainWindow):
         self.plot_legend.addItem(self.plot.plotItem.listDataItems()[-1], "Без учета сопротивления воздуха")
         return x, y, t
 
-    def add_airres_plot_to_plot(self, speed, angle, accel, height, air_dens, mat_dens, mass, pen="b"):
+    def add_airres_plot_to_plot(self, speed, angle, accel, height, air_dens, mat_dens, mass, time_step, pen="b"):
         x, y, t = airres(start_speed=speed,
                          angle=angle,
                          g=accel,
                          start_height=height,
                          air_density=air_dens,
                          material_density=mat_dens,
-                         mass=mass
+                         mass=mass,
+                         time_step=time_step
                          )
         self.coords_table2.setRowCount(len(t))
         for i in range(len(t)):
@@ -411,12 +416,14 @@ class Window(QMainWindow, Ui_MainWindow):
             air_density = self.get_air_environment_density()
             material_density = self.get_material_density()
             mass = self.get_mass_in_kilograms()
+            time_step = self.get_time_step()
             if self.airresistanceoffbut.isChecked():
                 x1, y1, t1 = self.add_noairres_plot_to_plot(
                     speed=speed,
                     angle=angle,
                     accel=acceleration,
                     height=start_height,
+                    time_step=time_step,
                     pen=self.noairres_pen
                 )
                 x2, y2, t2 = [(0,) for _ in range(3)]
@@ -430,6 +437,7 @@ class Window(QMainWindow, Ui_MainWindow):
                     air_dens=air_density,
                     mat_dens=material_density,
                     mass=mass,
+                    time_step=time_step,
                     pen=self.airres_pen
                 )
                 x1, y1, t1 = [(0,) for _ in range(3)]
@@ -440,6 +448,7 @@ class Window(QMainWindow, Ui_MainWindow):
                     angle=angle,
                     accel=acceleration,
                     height=start_height,
+                    time_step=time_step,
                     pen=self.noairres_pen
                 )
                 x2, y2, t2 = self.add_airres_plot_to_plot(
@@ -450,6 +459,7 @@ class Window(QMainWindow, Ui_MainWindow):
                     air_dens=air_density,
                     mat_dens=material_density,
                     mass=mass,
+                    time_step=time_step,
                     pen=self.airres_pen
                 )
                 self.plot.setTitle(title="Сравнение баллистической и параболической кривых")
