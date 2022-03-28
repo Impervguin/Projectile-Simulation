@@ -3,3 +3,5 @@ LinuxRelease.zip
 WinRelease.zip
 release
 test.py
+.idea
+__pycache__
