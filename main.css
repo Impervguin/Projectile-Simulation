@@ -1,0 +1,25 @@
+body {
+    background-color: #f1f1f2;
+}
+
+select.group-select {
+    max-width: 30%;
+    vertical-align: middle;
+}
+form.projectile-form {
+    background-color: #1995ad;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+form.system-form {
+    background-color: #1995ad;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+.table-striped {
+    background-color: #a1d6e2;
+    border: 2px solid black;
+    border-radius: 2px;
+}
