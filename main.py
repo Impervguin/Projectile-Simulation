@@ -43,6 +43,10 @@ def physical_values():
     data = DATA
     return render_template('physical_values.html', data=data)
 
+@app.route('/theory')
+def theory():
+   return render_template("theory.html")
+
 
 @app.route('/main')
 def main():

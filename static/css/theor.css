@@ -1,0 +1,23 @@
+.theory {
+    margin: auto;
+    background: #ffffff;
+    border: 1px solid #29aefd;
+
+}
+main {
+    background-image: url(static/img/background_physics.png) ;
+}
+
+p {
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 0px;
+    text-align: justify;
+
+}
+.formula {
+    border: 2px solid #29aefd;
+    border-radius:20px;
+    background-color: #f5f5f5;
+    margin: 3%;
+}
