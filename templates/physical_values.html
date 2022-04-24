@@ -4,7 +4,7 @@
 {% block content %}
     <title>Физические константы</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/physical_values.css')}}">
-
+    <h1>ДОБАВИТЬ СУКА ФИЗИЧЕСКИЕ ЕДИНИЦЫ ИЗМЕРЕНИЯ</h1>
     <main class="row">
         <div class="col-lg-4">
             <table class="table table-striped">
@@ -60,7 +60,7 @@
                   <tr>
                     <th scope="row">{{item["_id"]}}</th>
                     <th>{{item["planet"]}}</th>
-                    <th>{{item["density"]}}</th>
+                    <th>{{item["acceleration"]}}</th>
                   </tr>
                  {% endfor %}
                 </tbody>

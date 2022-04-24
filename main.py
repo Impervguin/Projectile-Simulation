@@ -5,10 +5,11 @@ import json
 import plotly
 import plotly.express as px
 from data import db_session
+from data.read_constants import transfer
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Han6some_pe1verts'
-
+DATA = transfer()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():  # Дописать код проверки данных из формы, добавления в бд, и перенаправления на главный сайт
@@ -28,7 +29,7 @@ def login():
 
 @app.route('/physical_values')
 def physical_values():
-    data = {"AIR_ENVIRONMENTS":{}, "MATERIAL_DENSITY":{}, "PLANETS":{}}
+    data = DATA
     return render_template('physical_values.html', data=data)
 
 
@@ -45,5 +46,5 @@ def main():
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/blogs.db")
+    # db_session.global_init("db/blogs.db")
     app.run(port=8080, host='127.0.0.1')
