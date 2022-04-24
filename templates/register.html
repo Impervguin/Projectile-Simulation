@@ -12,9 +12,11 @@
     <title>Регистрация</title>
 </head>
 <body>
-    <div class="alert alert-danger" role="alert">
-        {{ message }}
-    </div>
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
     <main class="form-register col-lg-3">
         <form method="post">
             <img src="{{url_for('static', filename='img/victory.png')}}" class ="mb-4">
