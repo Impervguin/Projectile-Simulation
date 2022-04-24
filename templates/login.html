@@ -15,7 +15,7 @@
 
     <main class="form-login col-lg-3">
         <form method="post" novalidate>
-            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <img src="{{url_for('static', filename='img/hand.png')}}" class ="mb-4">
             <h1 class="h3 mb-3 fw-normal">Пожалуйста, войдите</h1>
             <div class="form-floating">
