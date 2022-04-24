@@ -5,6 +5,7 @@ import json
 import plotly
 import plotly.express as px
 from data import db_session
+from data.users import User
 from data.read_constants import transfer
 
 app = Flask(__name__)
@@ -46,5 +47,5 @@ def main():
 
 
 if __name__ == '__main__':
-    # db_session.global_init("db/blogs.db")
+    db_session.global_init("db/users_information.db")
     app.run(port=8080, host='127.0.0.1')

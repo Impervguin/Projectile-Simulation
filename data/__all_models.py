@@ -1,2 +1,2 @@
-import users
-import user_graphs
+from . import users
+from . import user_graphs

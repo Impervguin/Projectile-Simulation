@@ -1,6 +1,6 @@
 import sqlalchemy
-from db_session import SqlAlchemyBase
-
+from .db_session import SqlAlchemyBase
+from sqlalchemy import orm
 
 class User(SqlAlchemyBase):
     __tablename__ = 'USERS'
@@ -8,3 +8,4 @@ class User(SqlAlchemyBase):
     email = sqlalchemy.Column(sqlalchemy.TEXT, index=True, unique=True, nullable=True)
     hash_password = sqlalchemy.Column(sqlalchemy.TEXT, nullable=True)
 
+    user_graphs = orm.relation("UserGraphs", back_populates='user')
