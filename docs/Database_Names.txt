@@ -1,0 +1,40 @@
+users.db
+
+DATA:
+_id INT
+email STR
+hash_password STR
+
+
+user_graphs.db
+
+DATA:
+_id INT
+user_id INT
+speed FLOAT
+mass FLOAT
+substance STR
+angle FLOAT
+height FLOAT
+planet STR
+air_env STR
+resistance BOOL
+calc_step FLOAT
+
+
+physical_values.db
+
+AIR_ENVIRONMENTS:
+_id INT
+air TEXT
+density FLOAT
+
+MATERIAL_DENSITY:
+_id INT
+material TEXT
+density FLOAT
+
+PLANETS:
+_id INT
+planet TEXT
+acceleration FLOAT
