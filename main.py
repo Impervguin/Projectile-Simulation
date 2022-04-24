@@ -16,8 +16,7 @@ DATA = transfer()
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-
-    if form.submit():
+    if form.validate_on_submit():
         if form.password.data != form.password_confirmation.data:
             return render_template('register.html', form=form, message="Пароли не совпадают")
         db_sess = db_session.create_session()
@@ -34,7 +33,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.submit():
         return redirect("/main")
     return render_template('login.html', form=form)
 
