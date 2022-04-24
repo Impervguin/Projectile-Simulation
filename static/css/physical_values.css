@@ -1,0 +1,8 @@
+main {
+    padding:20px;
+}
+.table-striped {
+    background-color: #a1d6e2;
+    border: 2px solid black;
+    border-radius: 2px;
+}

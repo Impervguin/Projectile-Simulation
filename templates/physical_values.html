@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <title>Физические константы</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/physical_values.css')}}">
+
+    <main class="row">
+        <div class="col-lg-4">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Воздушная среда</th>
+                    <th scope="col">Плотность</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in data['AIR_ENVIRONMENTS']%}
+                  <tr>
+                    <th scope="row">{{item["_id"]}}</th>
+                    <th>{{item["air"]}}</th>
+                    <th>{{item["density"]}}</th>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Материал</th>
+                    <th scope="col">Плотность</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in data['MATERIAL_DENSITY']%}
+                  <tr>
+                    <th scope="row">{{item["_id"]}}</th>
+                    <th>{{item["material"]}}</th>
+                    <th>{{item["density"]}}</th>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Планета</th>
+                    <th scope="col">Ускорение свободного падения</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {% for item in data['PLANETS']%}
+                  <tr>
+                    <th scope="row">{{item["_id"]}}</th>
+                    <th>{{item["planet"]}}</th>
+                    <th>{{item["density"]}}</th>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}
