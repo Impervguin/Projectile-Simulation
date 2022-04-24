@@ -2,9 +2,10 @@ import sqlalchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
+from flask_login import UserMixin
 
 
-class User(SqlAlchemyBase):
+class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'USERS'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     email = sqlalchemy.Column(sqlalchemy.TEXT, index=True, unique=True, nullable=True)
