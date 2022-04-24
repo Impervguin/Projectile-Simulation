@@ -12,13 +12,8 @@
     <title>Регистрация</title>
 </head>
 <body>
-    {% if message %}
-        <div class="alert alert-danger" role="alert">
-            {{ message }}
-        </div>
-    {% endif %}
     <main class="form-register col-lg-3">
-        <form method="post">
+        <form method="post" novalidate>
             <img src="{{url_for('static', filename='img/victory.png')}}" class ="mb-4">
             <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
             <div class="form-floating mb-3">
@@ -55,5 +50,10 @@
 
         </form>
     </main>
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
 </body>
 </html>
