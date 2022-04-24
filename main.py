@@ -24,7 +24,10 @@ def login():
         return redirect("/main")
     return render_template('login.html', form=form)
 
-
+@app.route('/physical_values')
+def physical_values():
+    data = {"AIR_ENVIRONMENTS":{}, "MATERIAL_DENSITY":{}, "PLANETS":{}}
+    return render_template('physical_values.html', data=data)
 @app.route('/main')
 def notdash():
     df = pd.DataFrame({
