@@ -3,7 +3,7 @@ import sqlite3
 
 def transfer():
     data = {}
-    db = sqlite3.connect("db/physical_values.db")
+    db = sqlite3.connect("../db/physical_values.db")
     cur = db.cursor()
     tables_information = cur.execute("SELECT * FROM sqlite_master").fetchall()
     tables = {}
