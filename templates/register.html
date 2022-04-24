@@ -46,15 +46,16 @@
                 {% endfor %}
                 <label for="password-conf">Подтверждение пароля</label>
             </div>
-
+            {% if message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
             {{ form.submit(type="submit", class="btn btn-primary") }}
+
 
         </form>
     </main>
-    {% if message %}
-        <div class="alert alert-danger" role="alert">
-            {{ message }}
-        </div>
-    {% endif %}
+
 </body>
 </html>
