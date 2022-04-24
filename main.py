@@ -12,11 +12,22 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Han6some_pe1verts'
 DATA = transfer()
 
+
 @app.route('/register', methods=['GET', 'POST'])
-def register():  # Дописать код проверки данных из формы, добавления в бд, и перенаправления на главный сайт
+def register():
     form = RegisterForm()
+
     if form.validate_on_submit():
-        return redirect("/main")
+        if form.password.data != form.password_confirmation.data:
+            return render_template('register.html', form=form, message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', form=form, message="Такой пользователь уже есть")
+        user = User(email=form.email.data)
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect('/login')
     return render_template('register.html', form=form)
 
 
