@@ -33,7 +33,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.submit():
+    if form.validate_on_submit():
         return redirect("/main")
     return render_template('login.html', form=form)
 
