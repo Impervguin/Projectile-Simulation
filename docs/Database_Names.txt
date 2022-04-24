@@ -1,23 +1,20 @@
-users.db
+users_information.db
 
-DATA:
+USERS:
 _id INT
-email STR
-hash_password STR
+email TEXT
+hash_password TEXT
 
-
-user_graphs.db
-
-DATA:
+USER_GRAPHS:
 _id INT
 user_id INT
 speed FLOAT
 mass FLOAT
-substance STR
+substance TEXT
 angle FLOAT
 height FLOAT
-planet STR
-air_env STR
+planet TEXT
+air_env TEXT
 resistance BOOL
 calc_step FLOAT
 

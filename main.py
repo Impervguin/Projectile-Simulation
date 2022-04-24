@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import plotly
 import plotly.express as px
+from data import db_session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Han6some_pe1verts'
@@ -24,12 +25,15 @@ def login():
         return redirect("/main")
     return render_template('login.html', form=form)
 
+
 @app.route('/physical_values')
 def physical_values():
     data = {"AIR_ENVIRONMENTS":{}, "MATERIAL_DENSITY":{}, "PLANETS":{}}
     return render_template('physical_values.html', data=data)
+
+
 @app.route('/main')
-def notdash():
+def main():
     df = pd.DataFrame({
         'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges',
                   'Bananas'],
@@ -41,4 +45,5 @@ def notdash():
 
 
 if __name__ == '__main__':
+    db_session.global_init("db/blogs.db")
     app.run(port=8080, host='127.0.0.1')
