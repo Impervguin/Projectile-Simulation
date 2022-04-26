@@ -8,10 +8,31 @@
                         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
                         crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
     <link rel="shortcut icon" href="{{url_for('static', filename='img/piercing.png')}}">
 </head>
 <body>
-    <header></header>
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a class="d-flex align-items-center mb-2" href="/main">
+                    <img src="{{url_for('static', filename='img/piercing-64.png')}}" class="rounded-circle" style="background-color: white;">
+                </a>
+                <ul class="nav justify-content-center mb-2 me-lg-auto mb-md-0">
+                    <li>
+                        <a class="nav-link px-2 text-white" href="/theory">Теория</a>
+                        <a class="nav-link px-2 text-white" href="/physical_values">Табличные значения</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <a id="dropdownUser" class="d-block dropdown-toggle text-white" aria-expanded="false" data-bs-toggle="dropdown">{{current_user.email}}</a>
+                    <ul class="dropdown-menu text-small " aria-labelledby="dropdownUser">
+                        <li><a class="dropdown-item" href="/logout">Выйти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
     {% block content %}{% endblock %}
     <footer></footer>
 </body>
