@@ -33,7 +33,26 @@
             </div>
         </div>
     </header>
+
     {% block content %}{% endblock %}
-    <footer></footer>
+
+    <footer class="border-top">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <img src="{{url_for('static', filename='img/GitHub-Mark-Light-64px.png')}}">
+                <div class="me-lg-auto">
+                    <a class="nav-link px-2 link-secondary" href="https://github.com/Impervguin">Impervguin</a>
+                    <a class="nav-link px-2 link-secondary" href="https://github.com/Formak21">Formak21</a>
+                </div>
+                <div class="link-secondary me-lg-auto">2022</div>
+                <div>
+                    <a href="https://www.flaticon.com/free-icons/missile" title="missile icons" class="nav-link link-secondary">Missile icons</a>
+                    <a href="https://www.flaticon.com/free-stickers/hands-and-gestures" title="hands and gestures stickers" class="nav-link link-secondary">Hands and gestures</a>
+                    <a href="https://www.flaticon.com/free-icons/gaming" title="gaming icons" class="nav-link link-secondary">Gaming icons</a>
+                </div>
+                <img src="{{url_for('static', filename='img/flaticon_white.png')}}">
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
