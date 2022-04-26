@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать!</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/piercing.png')}}">
+     <link rel="stylesheet"
+                        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                        crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/start.css')}}">
+</head>
+<body>
+    <main class="main-part col-lg-3">
+        <p><img src="{{url_for('static', filename='img/piercing.png')}}"></p>
+        <h1 id="txt1" class="txt">Projectile</h1>
+        <h1 id="txt2" class="txt mb-5">simulation</h1>
+        <a href="/register" class="btn btn-secondary cstmbtn">Зарегистрироваться</a>
+        <a href="/login" class="btn btn-primary cstmbtn">Войти</a>
+    </main>
+</body>
+<script>
+ /**
+ * Random colored text
+ * <rabbitfighter@cryptolab.net>
+ */
+
+//Get arrays of the text
+let letters = document.querySelector('#txt1').innerHTML.split('');
+let quote = document.querySelector('#txt2').innerHTML.split('');
+
+// Converts integer to hex
+const colToHex = (c) => {
+  // Hack so colors are bright enough
+  let color = (c < 75) ? c + 75 : c
+  let hex = color.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+// uses colToHex to concatenate
+// a full 6 digit hex code
+const rgbToHex = (r,g,b) => {
+  return "#" + colToHex(r) + colToHex(g) + colToHex(b);
+}
+
+// Returns three random 0-255 integers
+const getRandomColor = () => {
+  var i = Math.floor(Math.random() * 3);
+  var max1= 255;
+  var min1= 200;
+  var max2 = 10;
+  var r = 0;
+  var g = 0;
+  var b = 0;
+  if (i == 0) {
+    r = Math.floor(Math.random() * (max1 - min1) + min1);
+    g = Math.floor(Math.random() * max2);
+    b = Math.floor(Math.random() * max2);
+  } else if (i == 1) {
+    r = Math.floor(Math.random() * max2);
+    g = Math.floor(Math.random() * (max1 - min1) + min1);
+    b = Math.floor(Math.random() * max2);
+  } else {
+    r = Math.floor(Math.random() * max2);
+    g = Math.floor(Math.random() * max2);
+    b = Math.floor(Math.random() * (max1 - min1) + min1);
+  }
+  return rgbToHex(
+    r,
+    g,
+    b);
+}
+
+// This is the prototype function
+// that changes the color of each
+// letter by wrapping it in a span
+// element.
+Array.prototype.randomColor = function() {
+  let html = '';
+  this.map( (letter) => {
+    let color = getRandomColor();
+    html +=
+      "<span style=\"color:" + color + "\">"
+      + letter +
+      "</span>";
+  })
+  return html;
+};
+
+// Set the text
+document.querySelector('#txt1').innerHTML = letters.randomColor();
+document.querySelector('#txt2').innerHTML = quote.randomColor();
+</script>
+</html>

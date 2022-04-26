@@ -1,0 +1,20 @@
+.txt {
+  color: white;
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.7rem;
+}
+
+body {
+  margin: 20px;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.main-part {
+    margin: auto;
+    text-align: center;
+    padding: 15px;
+}
+
+
