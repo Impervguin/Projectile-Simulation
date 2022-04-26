@@ -76,6 +76,10 @@ def main():
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template("main.html", graphJSON=graphJSON)
 
+@app.route("/")
+def start():
+    return render_template("start.html")
+
 
 def startup():
     db_session.global_init("db/users_information.db")
