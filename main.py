@@ -103,7 +103,7 @@ def postdata():
             reqdata[key] = InternSysConverter.get_mass_in_kilograms(reqdata[key])
         elif key == 'angle':
             reqdata[key] = InternSysConverter.get_angle_in_degrees(reqdata[key])
-        elif key == 'air_resistance':
+        elif key == 'resistance':
             reqdata[key] = bool(reqdata[key])
         elif key not in {'air_env', 'planet', 'substance'}:
             reqdata[key] = float(reqdata[key])
