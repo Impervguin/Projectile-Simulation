@@ -1,5 +1,5 @@
 import scipy.integrate as sp
-from numpy import cos, sin, radians, sqrt, linspace, round, cbrt, pi, append
+from numpy import cos, sin, radians, sqrt, linspace, cbrt, pi, append
 from data.read_constants import transfer
 
 DATA = transfer()
@@ -8,7 +8,7 @@ DATA = transfer()
 def calculate_without_air_resistance(speed=0, angle=0, planet='Марс', height=0, calc_step=0.1):
     x = [0]
     y = [height]
-    g = DATA['planet'][planet]
+    g = DATA['PLANETS'][planet]['acceleration']
     angle = radians(angle)
     v_x = cos(angle) * speed
     v_y = sin(angle) * speed
@@ -19,15 +19,14 @@ def calculate_without_air_resistance(speed=0, angle=0, planet='Марс', height
     for i in t:
         x.append(v_x * i)
         y.append(height + v_y * i + (-g * i ** 2 / 2))
-    # for i in range(len(t)):
-    #     t[i] = round(t[i], decimals=6)
-    #     x[i] = round(x[i], decimals=6)
-    #     y[i] = round(y[i], decimals=6)
     return x, y, t
 
 
 def calculate_with_air_resistance(speed=0, angle=0, planet='Марс', height=0, air_env='Воздух', substance='Земля',
                                   mass=0, calc_step=0.1):
+    g = DATA['PLANETS'][planet]['acceleration']
+    material_density = DATA['MATERIAL_DENSITY'][substance]['density']
+    air_density = DATA['AIR_ENVIRONMENTS'][air_env]['density']
     c_f = 0.47
     r = cbrt((3 * mass) / (4 * pi * material_density))
     k = (3 / 8) * (c_f * air_density) / (r * material_density)
