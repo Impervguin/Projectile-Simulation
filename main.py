@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect
 from forms.user import RegisterForm, LoginForm
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import pandas as pd
 import json
 import plotly
@@ -24,6 +24,8 @@ def load_user(user_id):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect("/main")
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_confirmation.data:
@@ -35,12 +37,17 @@ def register():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        login_user(user, remember=False)
+        return redirect('/main')
     return render_template('register.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect("/main")
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -56,17 +63,23 @@ def login():
 
 @app.route('/physical_values')
 def physical_values():
+    if not current_user.is_authenticated:
+        return redirect("/")
     data = DATA
     return render_template('physical_values.html', data=data)
 
 
 @app.route('/theory')
 def theory():
+    if not current_user.is_authenticated:
+        return redirect("/")
     return render_template("theory.html")
 
 
 @app.route('/main')
 def main():
+    if not current_user.is_authenticated:
+        return redirect("/")
     df = pd.DataFrame({
         'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges',
                   'Bananas'],
@@ -76,9 +89,20 @@ def main():
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template("main.html", graphJSON=graphJSON)
 
+
 @app.route("/")
 def start():
+    if current_user.is_authenticated:
+        return redirect("/main")
     return render_template("start.html")
+
+
+@app.route('/logout')
+def logout():
+    if not current_user.is_authenticated:
+        return redirect("/")
+    logout_user()
+    return redirect("/")
 
 
 def startup():
