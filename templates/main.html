@@ -145,7 +145,7 @@
         <tbody>
         {% for item in projectiles %}
           <tr>
-            <th scope="row">{{item["num"]}}</th>
+            <th scope="row">{{item["id"]}}</th>
             <th>{{item["speed"]}}</th>
             <th>{{item["mass"]}}</th>
             <th>{{item["substance"]}}</th>
@@ -173,10 +173,10 @@
           <tr>
             <th scope="row">{{item["id"]}}</th>
             <th>{{item["planet"]}}</th>
-            <th>{{item["air"]}}</th>
+            <th>{{item["air_env"]}}</th>
             <th>{{item["resistance"]}}</th>
-            <th>{{item["step"]}}</th>
-            <th><button type="submit" class="btn btn-success" onclick="delete_graph({{item['id']}})">Удалить</button></th>
+            <th>{{item["calc_step"]}}</th>
+            <th><button type="submit" class="btn btn-success" onclick="delete_graph({{item['id']}});">Удалить</button></th>
           </tr>
         {% endfor %}
         </tbody>
