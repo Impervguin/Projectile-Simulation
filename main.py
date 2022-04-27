@@ -8,14 +8,13 @@ import plotly.express as px
 from data import db_session
 from data.users import User
 from data.user_graphs import UserGraphs
-from data.read_constants import transfer
+from calculate_coordinates import *
 import InternSysConverter
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'Han6some_pe1verts'
-DATA = transfer()
 
 
 @login_manager.user_loader
