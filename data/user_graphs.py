@@ -19,3 +19,17 @@ class UserGraphs(SqlAlchemyBase):
     calc_step = sqlalchemy.Column(sqlalchemy.FLOAT, nullable=True)
 
     user = orm.relation('User')
+
+    def to_dict(self):
+        return {'id': self.id,
+                'user_id': self.user_id,
+                'speed': self.speed,
+                'mass': self.mass,
+                'substance': self.substance,
+                'angle': self.angle,
+                'height': self.height,
+                'planet': self.planet,
+                'air_env': self.air_env,
+                'resistance': self.resistance,
+                'calc_step': self.calc_step
+                }

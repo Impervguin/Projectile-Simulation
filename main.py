@@ -82,7 +82,8 @@ def main():
     if not current_user.is_authenticated:
         return redirect("/")
 
-    
+    db_sess = db_session.create_session()
+    graphs = sorted([i.to_dict() for i in db_sess.query(UserGraphs).all()], key=lambda x: x['id'])
 
     df = pd.DataFrame({
         'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges',
