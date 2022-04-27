@@ -3,7 +3,6 @@ from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import json
 import plotly
-import plotly.express as px
 from data import db_session
 from data.users import User
 from data.user_graphs import UserGraphs
