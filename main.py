@@ -103,7 +103,7 @@ def main():
     fig.update_yaxes(title_text="Y, метры")
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template("main.html", graphJSON=graphJSON)
+    return render_template("main.html", projectiles=graphs, graphJSON=graphJSON)
 
 
 @app.route('/postdata', methods=["post"])
@@ -143,7 +143,8 @@ def deleteall():
 @app.route('/delete_graph', methods=["post"])
 @login_required
 def delete_graph():
-    _id = request.form  # Undefined behavior, probably unexpected type.
+    _id = request.data  # Undefined behavior, probably unexpected type.
+    print(_id)
     db_sess = db_session.create_session()
     graph = db_sess.query(UserGraphs).filter(UserGraphs.user == current_user, UserGraphs.id == _id).first()
     if graph:
