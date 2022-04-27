@@ -40,7 +40,7 @@ def register():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         login_user(user, remember=False)
-        return redirect('/main')
+        return redirect('/')
     return render_template('register.html', form=form)
 
 
@@ -54,7 +54,7 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect("/main")
+            return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
@@ -127,7 +127,7 @@ def postdata():
     current_user.user_graphs.append(graph)
     db_sess.merge(current_user)
     db_sess.commit()
-    return redirect("/main")
+    return redirect("/")
 
 
 @app.route('/deleteall')
@@ -138,7 +138,7 @@ def deleteall():
     for i in graphs:
         db_sess.delete(i)
         db_sess.commit()
-    return redirect("/main")
+    return redirect("/")
 
 
 @app.route('/delete_graph', methods=["post"])
@@ -150,7 +150,7 @@ def delete_graph():
     if graph:
         db_sess.delete(graph)
         db_sess.commit()
-    return redirect("/main")
+    return redirect("/")
 
 
 @app.route("/")
