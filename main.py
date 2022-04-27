@@ -7,7 +7,9 @@ import plotly
 import plotly.express as px
 from data import db_session
 from data.users import User
+from data.user_graphs import UserGraphs
 from data.read_constants import transfer
+import InternSysConverter
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -89,10 +91,27 @@ def main():
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template("main.html", graphJSON=graphJSON)
 
+
 @app.route('/postdata', methods=["post"])
 def postdata():
-    print(request.form)
+    db_sess = db_session.create_session()
+    reqdata = dict(request.form)
+    for key in reqdata.keys():
+        if key == 'speed':
+            reqdata[key] = InternSysConverter.get_speed_in_metersps(reqdata[key])
+        elif key == 'mass':
+            reqdata[key] = InternSysConverter.get_mass_in_kilograms(reqdata[key])
+        elif key == 'angle':
+            reqdata[key] = InternSysConverter.get_angle_in_degrees(reqdata[key])
+        elif key == 'air_resistance':
+            reqdata[key] = bool(reqdata[key])
+        elif key not in {'air_env', 'planet', 'substance'}:
+            reqdata[key] = float(reqdata[key])
+    graph = UserGraphs(**reqdata)
+    db_sess.add(graph)
+    db_sess.commit()
     return redirect("/main")
+
 
 @app.route("/")
 def start():

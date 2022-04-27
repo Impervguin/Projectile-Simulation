@@ -1,4 +1,6 @@
-def get_speed_in_metersps(typ, val):
+def get_speed_in_metersps(val):
+    val = val.split(',')
+    val, typ = float(val[0]), val[1]
     if typ == 'm/s':
         speed = val
     elif typ == 'km/h':
@@ -10,7 +12,9 @@ def get_speed_in_metersps(typ, val):
     return speed
 
 
-def get_mass_in_kilograms(typ, val):
+def get_mass_in_kilograms(val):
+    val = val.split(',')
+    val, typ = float(val[0]), val[1]
     if typ == 'kg':
         mass = val
     elif typ == 'g':
@@ -22,7 +26,9 @@ def get_mass_in_kilograms(typ, val):
     return mass
 
 
-def get_angle_in_degrees(typ, val):
+def get_angle_in_degrees(val):
+    val = val.split(',')
+    val, typ = float(val[0]), val[1]
     if typ == 'deg':
         angle = val
     elif typ == 'rad':
