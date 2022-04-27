@@ -1,10 +1,9 @@
 function check_number(input) {
-    ch = input.value.replace(/[^\d,]/g, '');
-//    pos = ch.indexOf(',');
-//    if(pos != -1){
-//        if((ch.length-pos)>2){
-//            ch = ch.slice(0, -1);
-//        }
-//    }
+    ch = input.value.replace(/[^\d.]/g, '');
+    var point_cnt = ch.split('.').length - 1;
+    if (point_cnt > 1) {
+        pos = ch.indexOf('.');
+        ch = ch.slice(0, pos) + ch.slice(pos + 1, ch.length);
+    }
     input.value = ch;
 };
