@@ -87,7 +87,7 @@ def main():
     fig = plotly.graph_objs.Figure()
     for graph in graphs:
         if graph["resistance"]:
-            req_data = ["speed", "angle", "planet", "height", "air_env", "substance","mass", "calc_step"]
+            req_data = ["speed", "angle", "planet", "height", "air_env", "substance", "mass", "calc_step"]
             data = {}
             for elem in req_data:
                 data[elem] = graph[elem]
@@ -126,6 +126,29 @@ def postdata():
     current_user.user_graphs.append(graph)
     db_sess.merge(current_user)
     db_sess.commit()
+    return redirect("/main")
+
+
+@app.route('/deleteall')
+@login_required
+def deleteall():
+    db_sess = db_session.create_session()
+    graphs = db_sess.query(UserGraphs).filter(UserGraphs.user == current_user).all()
+    for i in graphs:
+        db_sess.delete(i)
+        db_sess.commit()
+    return redirect("/main")
+
+
+@app.route('/delete_graph', methods=["post"])
+@login_required
+def delete_graph():
+    _id = request.form  # Undefined behavior, probably unexpected type.
+    db_sess = db_session.create_session()
+    graph = db_sess.query(UserGraphs).filter(UserGraphs.user == current_user, UserGraphs.id == _id).first()
+    if graph:
+        db_sess.delete(graph)
+        db_sess.commit()
     return redirect("/main")
 
 
