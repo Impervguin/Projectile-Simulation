@@ -7,6 +7,7 @@ function sendData( data ) {
   for( name in data ) {
     FD.append( name, data[ name ] );
   }
+  XHR.addEventListener("load", req_load());
   XHR.addEventListener(' error', function( event ) {
     alert( 'Oops! Something went wrong.' );
   } );
@@ -20,3 +21,7 @@ btn.addEventListener( 'click', function()
     sendData(data);
   };
 } )
+
+function req_load() {
+    window.location.replace("/wait");
+}
