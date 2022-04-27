@@ -27,7 +27,7 @@ function get_input_values() {
         "planet": planet.value,
         "air_env": air_env.value,
         "calc_step": calc_step.value,
-        "air_resistance": air_resistance.checked,
+        "resistance": air_resistance.checked,
     };
     return data;
 }
