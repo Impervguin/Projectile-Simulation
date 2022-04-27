@@ -7,7 +7,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2>Моделирование тела брошенного под углом к горизонту</h2>
+      <h2 style="text-align:center;">Моделирование тела брошенного под углом к горизонту</h2>
     </div>
   </div>
 </div>
@@ -165,16 +165,18 @@
             <th scope="col">Воздух</th>
             <th scope="col">Сопротивление</th>
             <th scope="col">Шаг вычислений</th>
+            <th scope="col"> Удаление </th>
           </tr>
         </thead>
         <tbody>
         {% for item in projectiles %}
           <tr>
-            <th scope="row">{{item["num"]}}</th>
+            <th scope="row">{{item["id"]}}</th>
             <th>{{item["planet"]}}</th>
             <th>{{item["air"]}}</th>
             <th>{{item["resistance"]}}</th>
             <th>{{item["step"]}}</th>
+            <th><button type="submit" class="btn btn-success" onclick="delete_graph({{item['id']}})">Удалить</button></th>
           </tr>
         {% endfor %}
         </tbody>
@@ -194,4 +196,5 @@
 <script src="{{url_for('static', filename='js/input-number-check.js')}}"></script>
 <script src="{{url_for('static', filename='js/get-input-values.js')}}"></script>
 <script src="{{url_for('static', filename='js/send-data.js')}}"></script>
+<script src="{{url_for('static', filename='js/delete-graph.js')}}"></script>
 {% endblock %}
