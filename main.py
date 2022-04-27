@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, render_template, redirect, request
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -165,6 +167,13 @@ def logout():
         return redirect("/")
     logout_user()
     return redirect("/")
+
+
+@app.route('/wait')
+@login_required
+def wait():
+    time.sleep(1)
+    return redirect('/')
 
 
 def startup():
