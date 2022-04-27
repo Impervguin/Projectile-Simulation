@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import pandas as pd
@@ -89,6 +89,10 @@ def main():
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template("main.html", graphJSON=graphJSON)
 
+@app.route('/postdata', methods=["post"])
+def postdata():
+    print(request.form)
+    return redirect("/main")
 
 @app.route("/")
 def start():
