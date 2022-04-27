@@ -93,6 +93,7 @@ def main():
 
 
 @app.route('/postdata', methods=["post"])
+@login_required
 def postdata():
     db_sess = db_session.create_session()
     reqdata = dict(request.form)
@@ -108,7 +109,8 @@ def postdata():
         elif key not in {'air_env', 'planet', 'substance'}:
             reqdata[key] = float(reqdata[key])
     graph = UserGraphs(**reqdata)
-    db_sess.add(graph)
+    current_user.user_graphs.append(graph)
+    db_sess.merge(current_user)
     db_sess.commit()
     return redirect("/main")
 
