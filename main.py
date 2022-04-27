@@ -120,7 +120,7 @@ def postdata():
         elif key == 'angle':
             reqdata[key] = InternSysConverter.get_angle_in_degrees(reqdata[key])
         elif key == 'resistance':
-            reqdata[key] = bool(reqdata[key])
+            reqdata[key] = (reqdata[key] == 'true')
         elif key not in {'air_env', 'planet', 'substance'}:
             reqdata[key] = float(reqdata[key])
     graph = UserGraphs(**reqdata)
