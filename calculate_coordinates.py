@@ -1,11 +1,14 @@
 import scipy.integrate as sp
 from numpy import cos, sin, radians, sqrt, linspace, round, cbrt, pi, append
+from data.read_constants import transfer
+
+DATA = transfer()
 
 
-def calculate_without_air_resistance(speed=0, angle=0, planet=0, height=0, calc_step=0.1):
+def calculate_without_air_resistance(speed=0, angle=0, planet='Марс', height=0, calc_step=0.1):
     x = [0]
     y = [height]
-
+    g = DATA['planet'][planet]
     angle = radians(angle)
     v_x = cos(angle) * speed
     v_y = sin(angle) * speed
@@ -23,7 +26,7 @@ def calculate_without_air_resistance(speed=0, angle=0, planet=0, height=0, calc_
     return x, y, t
 
 
-def calculate_with_air_resistance(speed=0, angle=0, planet=0, height=0, air_env=0, substance=0,
+def calculate_with_air_resistance(speed=0, angle=0, planet='Марс', height=0, air_env='Воздух', substance='Земля',
                                   mass=0, calc_step=0.1):
     c_f = 0.47
     r = cbrt((3 * mass) / (4 * pi * material_density))
