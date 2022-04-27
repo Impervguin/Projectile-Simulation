@@ -19,7 +19,7 @@ def get_mass_in_kilograms(val):
         mass = val
     elif typ == 'г':
         mass = val / 1000
-    elif typ == 'ф':
+    elif typ == 'фунт':
         mass = val * 0.45
     else:
         mass = val * 1000
