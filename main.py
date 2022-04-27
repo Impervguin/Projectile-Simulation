@@ -82,7 +82,8 @@ def main():
         return redirect("/")
 
     db_sess = db_session.create_session()
-    graphs = sorted([i.to_dict() for i in db_sess.query(UserGraphs).all()], key=lambda x: x['id'])
+    graphs = sorted([i.to_dict() for i in db_sess.query(UserGraphs).filter(UserGraphs.user == current_user).all()],
+                    key=lambda x: x['id'])
 
     fig = plotly.graph_objs.Figure()
     for graph in graphs:
@@ -143,8 +144,7 @@ def deleteall():
 @app.route('/delete_graph', methods=["post"])
 @login_required
 def delete_graph():
-    _id = request.data  # Undefined behavior, probably unexpected type.
-    print(_id)
+    _id = int(str(request.data, encoding='utf-8'))
     db_sess = db_session.create_session()
     graph = db_sess.query(UserGraphs).filter(UserGraphs.user == current_user, UserGraphs.id == _id).first()
     if graph:
