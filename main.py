@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, request
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-import pandas as pd
 import json
 import plotly
 import plotly.express as px
@@ -85,12 +84,23 @@ def main():
     db_sess = db_session.create_session()
     graphs = sorted([i.to_dict() for i in db_sess.query(UserGraphs).all()], key=lambda x: x['id'])
 
-    df = pd.DataFrame({
-        'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges',
-                  'Bananas'],
-        'Amount': [4, 1, 2, 2, 4, 5],
-        'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']})
-    fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
+    fig = plotly.graph_objs.Figure()
+    for graph in graphs:
+        if graph["resistance"]:
+            req_data = ["speed", "angle", "planet", "height", "air_env", "substance","mass", "calc_step"]
+            data = {}
+            for elem in req_data:
+                data[elem] = graph[elem]
+            x, y, t = calculate_with_air_resistance(**data)
+        else:
+            req_data = ["speed", "angle", "planet", "height", "calc_step"]
+            data = {}
+            for elem in req_data:
+                data[elem] = graph[elem]
+            x, y, t = calculate_without_air_resistance(**data)
+        fig.add_scatter(x=x, y=y, mode="lines", name=str(graph["id"]))
+    fig.update_xaxes(title_text="X, метры")
+    fig.update_yaxes(title_text="Y, метры")
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template("main.html", graphJSON=graphJSON)
