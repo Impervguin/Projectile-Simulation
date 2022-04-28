@@ -5,7 +5,6 @@
     <title>Физические константы</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/physical_values.css')}}">
     <main class="container">
-        <h1>ДОБАВИТЬ СУКА ФИЗИЧЕСКИЕ ЕДИНИЦЫ ИЗМЕРЕНИЯ</h1>
         <div>
             <table class="table table-striped">
                 <thead>
@@ -18,9 +17,9 @@
                 <tbody>
                 {% for item in data['AIR_ENVIRONMENTS']%}
                   <tr>
-                    <th scope="row">{{item["_id"]}}</th>
-                    <th>{{item["air"]}}</th>
-                    <th>{{item["density"]}}</th>
+                    <th scope="row">{{data['AIR_ENVIRONMENTS'][item]["_id"]}}</th>
+                    <th>{{data['AIR_ENVIRONMENTS'][item]["air"]}}</th>
+                    <th>{{data['AIR_ENVIRONMENTS'][item]["density"]}} кг/м3</th>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -38,9 +37,9 @@
                 <tbody>
                 {% for item in data['MATERIAL_DENSITY']%}
                   <tr>
-                    <th scope="row">{{item["_id"]}}</th>
-                    <th>{{item["material"]}}</th>
-                    <th>{{item["density"]}}</th>
+                    <th scope="row">{{data['MATERIAL_DENSITY'][item]["_id"]}}</th>
+                    <th>{{data['MATERIAL_DENSITY'][item]["material"]}}</th>
+                    <th>{{data['MATERIAL_DENSITY'][item]["density"]}} кг/м3</th>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -58,9 +57,9 @@
                 <tbody>
                  {% for item in data['PLANETS']%}
                   <tr>
-                    <th scope="row">{{item["_id"]}}</th>
-                    <th>{{item["planet"]}}</th>
-                    <th>{{item["acceleration"]}}</th>
+                    <th scope="row">{{data['PLANETS'][item]["_id"]}}</th>
+                    <th>{{data['PLANETS'][item]["planet"]}}</th>
+                    <th>{{data['PLANETS'][item]["acceleration"]}} м/с2</th>
                   </tr>
                  {% endfor %}
                 </tbody>
