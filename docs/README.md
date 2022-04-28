@@ -9,4 +9,4 @@
 # Наше главное достижение
 ![](/One_Hundred_Commit.png)
 
-Приложение разработано неполным составом команды **HackFaq1**, В лице **![Formak21](https://github.com/Formak21)** и **![Impervguin](https://github.com/Impervguin)**. 
+Приложение разработано неполным составом команды **HackFaq1**, В лице **[Formak21](https://github.com/Formak21)** и **[Impervguin](https://github.com/Impervguin)**. 
