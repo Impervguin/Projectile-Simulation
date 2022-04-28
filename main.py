@@ -66,8 +66,7 @@ def login():
 def physical_values():
     if not current_user.is_authenticated:
         return redirect("/")
-    data = DATA
-    return render_template('physical_values.html', data=data)
+    return render_template('physical_values.html', data=DATA)
 
 
 @app.route('/theory')
