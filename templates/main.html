@@ -79,7 +79,7 @@
   </div>
   <div class="row">
     <div class="col-4">
-      <form class="system-form mb-5" method="post">
+      <form class="system-form mb-5"  id="sys-form" method="post">
         <h5><b>Характеристики системы</b></h5>
         <label for="planet-form">Планета</label>
         <div class="input-group mb-3">
@@ -129,11 +129,11 @@
         </div>
       </form>
     </div>
-    <div class="col-4">
-      <img src="{{url_for('static', filename='img/promo1.png')}}">
+    <div class="col-4 promo" >
+      <img src="{{url_for('static', filename='img/promo1.png')}}" id="promo1">
     </div>
-    <div class="col-4">
-      <img src="{{url_for('static', filename='img/promo2.png')}}">
+    <div class="col-4 promo" >
+      <img src="{{url_for('static', filename='img/promo2.png')}}" id="promo2">
     </div>
   </div>
       <button type="submit" class="btn btn-success" id="addbtn">Добавить график</button>
@@ -203,6 +203,7 @@
   var graphs = {{graphJSON | safe}};
   Plotly.plot('chart',graphs,{});
 </script>
+<script src="{{url_for('static', filename='js/set-ad-height.js')}}"></script>
 <script src="{{url_for('static', filename='js/input-number-check.js')}}"></script>
 <script src="{{url_for('static', filename='js/get-input-values.js')}}"></script>
 <script src="{{url_for('static', filename='js/send-data.js')}}"></script>
