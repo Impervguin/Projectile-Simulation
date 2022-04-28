@@ -18,7 +18,7 @@
         <h5><b>Характеристики тела</b></h5>
         <label for="speed-form">Начальная скорость</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Начальная скорость" id="speed-form" oninput="return check_number(this);">
+          <input type="text" class="form-control" placeholder="Начальная скорость" id="speed-form" oninput="return check_number(this);" data-max="200" data-min="0">
           <select class="form-control group-select"  id="speed-units-form">
             <option>м/с</option>
             <option>км/ч</option>
@@ -28,7 +28,7 @@
         </div>
         <label for="mass-form">Масса</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Масса" id="mass-form" oninput="return check_number(this);">
+          <input type="text" class="form-control" placeholder="Масса" id="mass-form" oninput="return check_number(this);" data-max="1000" data-min="0">
           <select class="form-control group-select"  id="mass-units-form">
             <option>кг</option>
             <option>г</option>
@@ -58,7 +58,7 @@
         </div>
         <label for="angle-form">Угол запуска</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Угол" id="angle-form" oninput="return check_number(this);">
+          <input type="text" class="form-control" placeholder="Угол" id="angle-form" oninput="return check_number(this);" data-max="32400" data-min="0">
           <select class="form-control group-select"  id="angle-units-form">
             <option>град</option>
             <option>рад</option>
@@ -68,7 +68,7 @@
         </div>
         <label for="height-form">Начальная высота</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Высота" id="height-form" oninput="return check_number(this);">
+          <input type="text" class="form-control" placeholder="Высота" id="height-form" oninput="return check_number(this);" data-max="10000" data-min="0">
           <span class="input-group-text">Метры</span>
         </div>
       </form>
@@ -116,7 +116,7 @@
         </div>
         <label for="calc-step-form">Шаг вычислений</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Шаг вычислений" id="calc-step-form" oninput="return check_number(this);">
+          <input type="text" class="form-control" placeholder="Шаг вычислений" id="calc-step-form" oninput="return check_number(this);" data-max="10" data-min="0.1">
           <span class="input-group-text">Секунды</span>
         </div>
         <div class="input-group" role="group">
@@ -130,10 +130,10 @@
       </form>
     </div>
     <div class="col-4 promo" >
-        <a href="/aaaa"><img src="{{url_for('static', filename='img/promo1.png')}}" id="promo1"></a>
+        <a href="https://vk.com/formak21"><img src="{{url_for('static', filename='img/promo1.png')}}" id="promo1"></a>
     </div>
     <div class="col-4 promo" >
-        <a href="/aaaaa"><img src="{{url_for('static', filename='img/promo2.png')}}" id="promo2"></a>
+        <a href="https://vk.com/impervguin"><img src="{{url_for('static', filename='img/promo2.png')}}" id="promo2"></a>
     </div>
   </div>
       <button type="submit" class="btn btn-success" id="addbtn">Добавить график</button>
