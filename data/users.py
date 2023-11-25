@@ -11,7 +11,8 @@ class User(SqlAlchemyBase, UserMixin):
     email = sqlalchemy.Column(sqlalchemy.TEXT, index=True, unique=True, nullable=True)
     hash_password = sqlalchemy.Column(sqlalchemy.TEXT, nullable=True)
 
-    user_graphs = orm.relation("UserGraphs", back_populates='user')
+    user_graphs = orm.relationship("UserGraphs", back_populates='user')
+    
 
     def set_password(self, password):
         self.hash_password = generate_password_hash(password)

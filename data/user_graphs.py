@@ -18,7 +18,7 @@ class UserGraphs(SqlAlchemyBase):
     resistance = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
     calc_step = sqlalchemy.Column(sqlalchemy.FLOAT, nullable=True)
 
-    user = orm.relation('User')
+    user = orm.relationship('User')
 
     def to_dict(self):
         return {'id': self.id,
